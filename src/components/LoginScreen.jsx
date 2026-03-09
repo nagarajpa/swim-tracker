@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID
+const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '304020342468-h1o4n95654lhiaidfsqrfpj5084mhjnb.apps.googleusercontent.com'
 
 function waitForGoogle(cb) {
   if (window.google?.accounts) { cb(); return }

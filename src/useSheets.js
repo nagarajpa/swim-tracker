@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 
-const SHEET_ID = import.meta.env.VITE_SHEET_ID
+const SHEET_ID = import.meta.env.VITE_SHEET_ID || '1SYeVcY3xpktgJOD0LJdT-MM2NP1-bS9hTbBsOQ3N4RQ'
 const BASE = 'https://sheets.googleapis.com/v4/spreadsheets'
 
 // ── helpers ──────────────────────────────────────────────────────────────────

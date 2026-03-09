@@ -2,17 +2,25 @@ import React, { useEffect } from 'react'
 
 const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID
 
+function waitForGoogle(cb) {
+  if (window.google?.accounts) { cb(); return }
+  const interval = setInterval(() => {
+    if (window.google?.accounts) { clearInterval(interval); cb() }
+  }, 100)
+}
+
 export default function LoginScreen({ onLogin }) {
   useEffect(() => {
-    if (!window.google) return
-    window.google.accounts.id.initialize({
-      client_id: CLIENT_ID,
-      callback: (response) => onLogin(response.credential),
+    waitForGoogle(() => {
+      window.google.accounts.id.initialize({
+        client_id: CLIENT_ID,
+        callback: (response) => onLogin(response.credential),
+      })
+      window.google.accounts.id.renderButton(
+        document.getElementById('google-signin-btn'),
+        { theme: 'outline', size: 'large', shape: 'pill', width: 280 }
+      )
     })
-    window.google.accounts.id.renderButton(
-      document.getElementById('google-signin-btn'),
-      { theme: 'outline', size: 'large', shape: 'pill', width: 280 }
-    )
   }, [onLogin])
 
   return (
